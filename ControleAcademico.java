@@ -1,5 +1,6 @@
 package map2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControleAcademico {
@@ -7,13 +8,26 @@ public class ControleAcademico {
     private List<Professor> professores;
     private List<Disciplina> disciplinas;
 
-    // Construtor e métodos
-
-    public void matricularAlunoEmDisciplina(Aluno aluno, Disciplina disciplina) {
-        aluno.adicionarDisciplina(disciplina);
+    public ControleAcademico() {
+        this.alunos = new ArrayList<>();
+        this.professores = new ArrayList<>();
+        this.disciplinas = new ArrayList<>();
     }
 
-    public void atribuirProfessorADisciplina(Professor professor, Disciplina disciplina) {
+    public boolean matricularAluno(Aluno aluno) {
+        if (alunos.contains(aluno)) {
+            System.out.println("O aluno " + aluno.getNome() + " já está matriculado.");
+            return false;
+        }
+        alunos.add(aluno);
+        return true;
+    }
+    
+    public void atribuirProfessor(Professor professor, Disciplina disciplina) {
+        if (!professores.contains(professor)) {
+            professores.add(professor);
+        }
         disciplina.setProfessorResponsavel(professor);
-        professor.adicionarDisciplinaMinistrada(disciplina);
+        professor.atribuirDisciplina(disciplina);
     }
+}
